@@ -64,11 +64,9 @@ public class WebcrawlerTest {
    }
 
    @Test
-   public void testFoundImages() throws Exception {
-      String results = siteProcessor.crawlSite("http://www.mysite.com");
-      assertTrue("image 1 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_1));
-      assertTrue("image 2 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_2));
-      assertTrue("image 3 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_3));
+   public void testNoRecursion() throws Exception {
+      String results = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL);
       assertTrue("image 4 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_4));
+      assertTrue("broncos url wasn't returned", results.contains(HttpServiceTestImpl.BRONCOS_URL));
    }
 }

@@ -20,9 +20,11 @@ public class SiteProcessor {
 
    public String crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
       validateUrl(url);
-      List<String> imageList = new ArrayList<String>();
+      List<String> mainList = new ArrayList<String>();
       Map<ElementType, List<String>> elementMap = httpService.getElements(url);
-      return "hello";
+      mainList.addAll(elementMap.get(ElementType.LINK));
+      mainList.addAll(elementMap.get(ElementType.IMAGE));
+      return mainList.toString();
    }
 
    private void validateUrl(String url) throws InvalidUrlException {
