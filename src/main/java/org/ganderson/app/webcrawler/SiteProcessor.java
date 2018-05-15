@@ -1,30 +1,27 @@
 package org.ganderson.app.webcrawler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.ganderson.app.webcrawler.exception.InvalidUrlException;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
 import org.ganderson.app.webcrawler.service.HttpService;
-import org.ganderson.app.webcrawler.service.HttpServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SiteProcessor {
-   HttpService webUtils = new HttpServiceImpl();
-
-   public static void main(String[] args) {
-      try {
-         System.out.println(new SiteProcessor().crawlSite(args[0]));
-      } catch (ArrayIndexOutOfBoundsException ae) {
-         System.out.println("must provide a url parameter");
-      } catch (InvalidUrlException | SiteNotFoundException | IOException e) {
-         System.out.println(e.getMessage());
-      }
-   }
+   @Autowired
+   HttpService httpService;
 
    public String crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
       validateUrl(url);
-      webUtils.getElements(url);
+      List<String> imageList = new ArrayList<String>();
+      Map<ElementType, List<String>> elementMap = httpService.getElements(url);
       return "hello";
    }
 
