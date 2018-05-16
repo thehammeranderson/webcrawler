@@ -40,6 +40,8 @@ public class HttpServiceTestImpl implements HttpService {
 
       case KNOWN_SITE_LEVEL_ONE_URL:
          imageList.add(IMAGE_2);
+         // test data to test that recursion won't infinitely loop
+         linkList.add(KNOWN_SITE_LEVEL_ONE_URL);
          linkList.add(KNOWN_SITE_LEVEL_TWO_URL);
          break;
 

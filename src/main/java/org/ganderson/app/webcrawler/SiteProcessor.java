@@ -13,9 +13,11 @@ import org.ganderson.app.webcrawler.exception.InvalidUrlException;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
 import org.ganderson.app.webcrawler.service.HttpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class SiteProcessor {
    @Autowired
    HttpService httpService;

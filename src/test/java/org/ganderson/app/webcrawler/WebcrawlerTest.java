@@ -67,6 +67,32 @@ public class WebcrawlerTest {
    public void testNoRecursion() throws Exception {
       String results = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL);
       assertTrue("image 4 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_4));
+      assertTrue("image 4 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_4) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_4));
       assertTrue("broncos url wasn't returned", results.contains(HttpServiceTestImpl.BRONCOS_URL));
+      assertTrue("broncos url wasn't returned only once", results.indexOf(HttpServiceTestImpl.BRONCOS_URL) == results.lastIndexOf(HttpServiceTestImpl.BRONCOS_URL));
+   }
+
+   @Test
+   public void testRecursion() throws Exception {
+      String results = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_URL);
+      assertTrue("image 1 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_1));
+      assertTrue("image 1 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_1) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_1));
+      assertTrue("level one url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL));
+      assertTrue("level one url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL));
+
+      assertTrue("image 2 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_2));
+      assertTrue("image 2 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_2) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_2));
+      assertTrue("level two url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL));
+      assertTrue("level two url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL));
+
+      assertTrue("image 3 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_3));
+      assertTrue("image 3 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_3) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_3));
+      assertTrue("level three url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL));
+      assertTrue("level three url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL));
+
+      assertTrue("image 4 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_4));
+      assertTrue("image 4 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_4) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_4));
+      assertTrue("broncos url wasn't returned", results.contains(HttpServiceTestImpl.BRONCOS_URL));
+      assertTrue("broncos url wasn't returned only once", results.indexOf(HttpServiceTestImpl.BRONCOS_URL) == results.lastIndexOf(HttpServiceTestImpl.BRONCOS_URL));
    }
 }
