@@ -5,6 +5,7 @@ import org.ganderson.app.webcrawler.service.HttpService;
 import org.ganderson.app.webcrawler.service.HttpServiceTestImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class TestConfig {
@@ -16,6 +17,7 @@ public class TestConfig {
    }
 
    @Bean
+   @Scope("prototype")
    public SiteProcessor siteProcessor() {
       SiteProcessor siteProcessor = new SiteProcessor();
       return siteProcessor;
