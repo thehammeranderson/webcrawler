@@ -1,10 +1,10 @@
 package org.ganderson.app.webcrawler.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.ganderson.app.webcrawler.ElementType;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
@@ -23,14 +23,14 @@ public class HttpServiceTestImpl implements HttpService {
    public static final String GOOGLE_URL = "http://www.google.com";
    public static final String BRONCOS_URL = "http://www.denverbroncos.com";
 
-   public Map<ElementType, List<String>> getElements(String url) throws IOException, SiteNotFoundException {
+   public Map<ElementType, Set<String>> getElements(String url) throws IOException, SiteNotFoundException {
       if (UNKNOWN_SITE_URL.equals(url)) {
          throw new SiteNotFoundException("site not found");
       }
 
-      Map<ElementType, List<String>> elementMap = new HashMap<>();
-      List<String> linkList = new ArrayList<String>();
-      List<String> imageList = new ArrayList<String>();
+      Map<ElementType, Set<String>> elementMap = new HashMap<>();
+      Set<String> linkList = new HashSet<String>();
+      Set<String> imageList = new HashSet<String>();
 
       switch (url) {
       case KNOWN_SITE_URL:

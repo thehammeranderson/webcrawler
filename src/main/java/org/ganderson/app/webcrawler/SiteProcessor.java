@@ -1,9 +1,7 @@
 package org.ganderson.app.webcrawler;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -22,17 +20,17 @@ public class SiteProcessor {
    @Autowired
    HttpService httpService;
 
-   private List<String> mainList = new ArrayList<String>();
+   private Set<String> mainList = new HashSet<String>();
    private Set<String> processedUrlMap = new HashSet<String>();
    private String baseUrl;
    private int maxRecursion = 100;
    private int recursionCount = 0;
 
-   public String crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
+   public Set<String> crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
       validateUrl(url);
       baseUrl = url;
       processUrl(url);
-      return mainList.toString();
+      return mainList;
    }
 
    private void processUrl(String url) throws IOException, SiteNotFoundException {
@@ -44,7 +42,7 @@ public class SiteProcessor {
          }
 
          processedUrlMap.add(url);
-         Map<ElementType, List<String>> elementMap = httpService.getElements(url);
+         Map<ElementType, Set<String>> elementMap = httpService.getElements(url);
          mainList.addAll(elementMap.get(ElementType.LINK));
          mainList.addAll(elementMap.get(ElementType.IMAGE));
 
