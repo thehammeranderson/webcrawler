@@ -110,7 +110,12 @@ public class WebcrawlerTest {
 
       assertTrue("image 4 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_4));
       assertTrue("image 4 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_4) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_4));
-      assertTrue("broncos url wasn't returned", results.contains(HttpServiceTestImpl.BRONCOS_URL));
-      assertTrue("broncos url wasn't returned only once", results.indexOf(HttpServiceTestImpl.BRONCOS_URL) == results.lastIndexOf(HttpServiceTestImpl.BRONCOS_URL));
+      pattern = Pattern.compile(HttpServiceTestImpl.BRONCOS_URL);
+      matcher = pattern.matcher(results);
+      count = 0;
+      while (matcher.find()) {
+         count++;
+      }
+      assertEquals("broncos uri substring wasn't returned 2 times", 2, count);
    }
 }

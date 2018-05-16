@@ -19,6 +19,7 @@ public class HttpServiceTestImpl implements HttpService {
    public static final String KNOWN_SITE_LEVEL_ONE_URL = KNOWN_SITE_URL + "/levelone";
    public static final String KNOWN_SITE_LEVEL_TWO_URL = KNOWN_SITE_LEVEL_ONE_URL + "/leveltwo";
    public static final String KNOWN_SITE_LEVEL_THREE_URL = KNOWN_SITE_LEVEL_TWO_URL + "/levelthree";
+   public static final String KNOWN_SITE_RELATIVE_URL = "relativepage.html";
    public static final String GOOGLE_URL = "http://www.google.com";
    public static final String BRONCOS_URL = "http://www.denverbroncos.com";
 
@@ -41,6 +42,7 @@ public class HttpServiceTestImpl implements HttpService {
       case KNOWN_SITE_LEVEL_ONE_URL:
          imageList.add(IMAGE_2);
          linkList.add(KNOWN_SITE_LEVEL_TWO_URL);
+         linkList.add(KNOWN_SITE_RELATIVE_URL);
          break;
 
       case KNOWN_SITE_LEVEL_TWO_URL:
@@ -52,6 +54,10 @@ public class HttpServiceTestImpl implements HttpService {
 
       case KNOWN_SITE_LEVEL_THREE_URL:
          imageList.add(IMAGE_4);
+         linkList.add(BRONCOS_URL);
+         break;
+
+      case KNOWN_SITE_URL + "/" + KNOWN_SITE_RELATIVE_URL:
          linkList.add(BRONCOS_URL);
          break;
       default:

@@ -44,8 +44,14 @@ public class SiteProcessor {
          for (String linkUrl : elementMap.get(ElementType.LINK)) {
             if (linkUrl.startsWith(baseUrl)) {
                processUrl(linkUrl);
-            } else if (linkUrl.startsWith("/")) {
-               processUrl(baseUrl + linkUrl);
+
+            } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
+               // handle relative urls   
+               String concatChar = "";
+               if (!baseUrl.endsWith("/")) {
+                  concatChar = "/";
+               }
+               processUrl(baseUrl + concatChar + linkUrl);
             }
          }
       }
