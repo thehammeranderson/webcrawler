@@ -24,19 +24,30 @@ public class SiteProcessor {
 
    private List<String> mainList = new ArrayList<String>();
    private Set<String> processedUrlMap = new HashSet<String>();
+   private String baseUrl;
 
    public String crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
       validateUrl(url);
+      baseUrl = url;
       processUrl(url);
       return mainList.toString();
    }
 
    private void processUrl(String url) throws IOException, SiteNotFoundException {
       if (!processedUrlMap.contains(url)) {
+         System.out.println(url);
          processedUrlMap.add(url);
          Map<ElementType, List<String>> elementMap = httpService.getElements(url);
          mainList.addAll(elementMap.get(ElementType.LINK));
          mainList.addAll(elementMap.get(ElementType.IMAGE));
+
+         for (String linkUrl : elementMap.get(ElementType.LINK)) {
+            if (linkUrl.startsWith(baseUrl)) {
+               processUrl(linkUrl);
+            } else if (linkUrl.startsWith("/")) {
+               processUrl(baseUrl + linkUrl);
+            }
+         }
       }
    }
 

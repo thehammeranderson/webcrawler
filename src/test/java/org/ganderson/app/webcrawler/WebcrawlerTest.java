@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.ganderson.app.webcrawler.config.TestConfig;
 import org.ganderson.app.webcrawler.exception.InvalidUrlException;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
@@ -77,18 +80,33 @@ public class WebcrawlerTest {
       String results = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_URL);
       assertTrue("image 1 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_1));
       assertTrue("image 1 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_1) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_1));
-      assertTrue("level one url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL));
-      assertTrue("level one url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL));
+      Pattern pattern = Pattern.compile(HttpServiceTestImpl.KNOWN_SITE_LEVEL_ONE_URL);
+      Matcher matcher = pattern.matcher(results);
+      int count = 0;
+      while (matcher.find()) {
+         count++;
+      }
+      assertEquals("level one uri substring wasn't returned 4 times", 4, count);
 
       assertTrue("image 2 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_2));
       assertTrue("image 2 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_2) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_2));
-      assertTrue("level two url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL));
-      assertTrue("level two url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL));
+      pattern = Pattern.compile(HttpServiceTestImpl.KNOWN_SITE_LEVEL_TWO_URL);
+      matcher = pattern.matcher(results);
+      count = 0;
+      while (matcher.find()) {
+         count++;
+      }
+      assertEquals("level two uri substring wasn't returned 2 times", 2, count);
 
       assertTrue("image 3 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_3));
       assertTrue("image 3 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_3) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_3));
-      assertTrue("level three url wasn't returned", results.contains(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL));
-      assertTrue("level three url wasn't returned only once", results.indexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL) == results.lastIndexOf(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL));
+      pattern = Pattern.compile(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL);
+      matcher = pattern.matcher(results);
+      count = 0;
+      while (matcher.find()) {
+         count++;
+      }
+      assertEquals("level thee uri substring wasn't returned 1 times", 1, count);
 
       assertTrue("image 4 wasn't returned", results.contains(HttpServiceTestImpl.IMAGE_4));
       assertTrue("image 4 wasn't returned only once", results.indexOf(HttpServiceTestImpl.IMAGE_4) == results.lastIndexOf(HttpServiceTestImpl.IMAGE_4));
