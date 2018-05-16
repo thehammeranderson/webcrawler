@@ -25,6 +25,8 @@ public class SiteProcessor {
    private List<String> mainList = new ArrayList<String>();
    private Set<String> processedUrlMap = new HashSet<String>();
    private String baseUrl;
+   private int maxRecursion = 100;
+   private int recursionCount = 0;
 
    public String crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
       validateUrl(url);
@@ -34,15 +36,22 @@ public class SiteProcessor {
    }
 
    private void processUrl(String url) throws IOException, SiteNotFoundException {
-      if (!processedUrlMap.contains(url)) {
-         System.out.println(url);
+      if (!processedUrlMap.contains(url) && recursionCount <= maxRecursion) {
+         recursionCount++;
+
+         if (recursionCount >= maxRecursion) {
+            return;
+         }
+
          processedUrlMap.add(url);
          Map<ElementType, List<String>> elementMap = httpService.getElements(url);
          mainList.addAll(elementMap.get(ElementType.LINK));
          mainList.addAll(elementMap.get(ElementType.IMAGE));
 
          for (String linkUrl : elementMap.get(ElementType.LINK)) {
-            if (linkUrl.startsWith(baseUrl)) {
+            if (linkUrl.toLowerCase().startsWith("mailto:")) {
+               continue;
+            } else if (linkUrl.startsWith(baseUrl)) {
                processUrl(linkUrl);
 
             } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
