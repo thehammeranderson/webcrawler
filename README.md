@@ -31,8 +31,12 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Running the tests
 
-From the root of the project run the following from the command line:
+If your environment is properly setup with Java and Maven, you can open up a shell/console/terminal window.  Change director to the webcrawler folder.  If you are in the right folder, you will see a pom.xml file.  Now you can type the following from the command line and press <return>:
+
+```
 mvn clean test
+
+```
 
 ### Break down into end to end tests
 
