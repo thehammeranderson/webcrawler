@@ -9,6 +9,7 @@ Here are some of the main features:
 * Domain is used to determine whether or not to consider the link internal to the website being processed (ie. http://www.amazon.com/somewhere and http://amazon.com/somewhereelse are both considered to be part of the same website)
 * Relative links are processed correctly (<a href="index.html">Home</a>)
 * Compatible with all TLS versions at the time of completion
+* Currently the crawler will only process up to 1000 pages but can be configured in the SiteProcessor class
 
 The jar file that is created when this project is built could be used as a library but beware that this is a super JAR that includes Spring and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a libary inside another application so you can build the JAR as you wish.
 
@@ -71,6 +72,6 @@ A stand alone executable jar file will be created in the target director of the 
 
 ## Future improvements
 
-* Some websites can be huge and would take a long time to process and results could be extremely large.  I would put some configurable options maybe at the command line to change the processing behavior to limit how many recursions or URLs to return.  Another option would be how to return the results (file, file type, format, etc.)
+* Some websites can be huge and would take a long time to process and results could be extremely large.  I would put some configurable options maybe at the command line to change the processing behavior to limit how many pages to process or URLs to return.  Another option would be how to return the results (file, file type, format, etc.)
 * Maybe treat none HTML page links like PDF and other file links differently, perhaps as a file link or something similar in category to images
 * Implement logging to a file for errors instead of System.out

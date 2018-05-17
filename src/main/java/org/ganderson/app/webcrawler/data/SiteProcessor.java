@@ -28,7 +28,7 @@ public class SiteProcessor {
    private Set<String> processedUrlMap = new HashSet<String>();
    private String host;
    private String baseUrl;
-   private int maxRecursion = 100;
+   private int maxRecursion = 1000;
    private int recursionCount = 0;
 
    public List<Page> crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException, URISyntaxException {
