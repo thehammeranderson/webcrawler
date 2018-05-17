@@ -17,8 +17,9 @@ Here are some of the main features:
 * In the Clone with HTTPs section, click the copy button to the right of the URL to copy the clone URL for the repository.
 * Open a terminal/console and navigate to the directory you wish to clone the repository to
 * At the command line type the following
-  * git clone https://github.com/thehammeranderson/webcrawler.git
-* You can now import this project into your IDE by importing as a Maven project
+```
+git clone https://github.com/thehammeranderson/webcrawler.git
+```
 
 See deployment for notes on how to deploy the project on a live system.
 
@@ -76,7 +77,6 @@ A stand alone executable jar file will be created in the target director of the 
 ## Future improvements
 
 * Some websites can be huge and would take a long time to process and results could be extremely large.  I would put some configurable options maybe at the command line to change the processing behavior to limit how many recursions or URLs to return.  Another option would be how to return the results (file, file type, format, etc.)
-* Processing could take a long time, so depending on the first improvement listed it would be nice to maybe give some feedback to the user to let them know work is being done until the processing has either hit any limits or finished processing the website
 
 
 
