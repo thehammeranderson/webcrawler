@@ -85,3 +85,5 @@ A stand alone executable jar file will be created in the target director of the 
 * Some websites can be huge and would take a long time to process and results could be extremely large.  I would put some configurable options maybe at the command line to change the processing behavior to limit how many pages to process or URLs to return.  Another option would be how to return the results (file, file type, format, etc.)
 * Maybe treat none HTML page links like PDF and other file links differently, perhaps as a file link or something similar in category to images
 * Implement logging to a file for errors instead of System.out
+* Possibly implement Maven Failsafe plugin for integration tests
+* Figure out a better way to have more and unfragile integration tests in place
