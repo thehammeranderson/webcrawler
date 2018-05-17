@@ -1,10 +1,26 @@
 # Webcrawler
 
-This is a java based simple website crowler.  Given a fully qualified URL as a parameter, the crawler will follow all internal links it finds and capture image source, and internal and external URLs found on the pages it processes.
+This is a java based website crowler.  Given a fully qualified URL (i.e. http://www.espn.com) as a parameter, the crawler will follow all internal links it finds and capture image source, and internal and external URLs found on the pages it processes.
+
+Here are some of the main features:
+* URL format validation
+* Crawling will not go back on itself when links become circular and could cause an infinite loop
+* Processed URLs can be either http or https and be considered as part of the website being processed
+* Domain is used to determine whether or not to consider the link internal to the website being processed (ie. http://www.amazon.com/somewhere and http://amazon.com/somewhereelse are both considered to be part of the same website
+* Relative links are processed correctly (<a href="index.html">Home</a>)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* Download and install Git
+** See https://git-scm.com/book/en/v2/Getting-Started-Installing-Git for more information
+* Click Clone or Download on this Github repository page
+* In the Clone with HTTPs section, click the copy button to the right of the URL to copy the clone URL for the repository.
+* Open a terminal/console and navigate to the directory you wish to clone the repository to
+* At the command line type the following
+** git clone https://github.com/thehammeranderson/webcrawler.git
+* You can now import this project into your IDE by importing as a Maven project
+
+See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites to build and run
 
