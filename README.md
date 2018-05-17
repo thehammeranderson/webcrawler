@@ -6,15 +6,16 @@ Here are some of the main features:
 * URL format validation
 * Crawling will not go back on itself when links become circular and could cause an infinite loop
 * Processed URLs can be either http or https and be considered as part of the website being processed
-* Domain is used to determine whether or not to consider the link internal to the website being processed (ie. http://www.amazon.com/somewhere and http://amazon.com/somewhereelse are both considered to be part of the same website
+* Domain is used to determine whether or not to consider the link internal to the website being processed (ie. http://www.amazon.com/somewhere and http://amazon.com/somewhereelse are both considered to be part of the same website)
 * Relative links are processed correctly (<a href="index.html">Home</a>)
+* Compatible with all TLS versions at the time of completion
+
+The jar file that is created when this project is built could be used as a library but beware that this is a super JAR that includes Spring and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a libary inside another application so you can build the JAR as you wish.
 
 ## Getting Started
 
 * Download and install Git
   * See https://git-scm.com/book/en/v2/Getting-Started-Installing-Git for more information
-* Click Clone or Download on this Github repository page
-* In the Clone with HTTPs section, click the copy button to the right of the URL to copy the clone URL for the repository.
 * Open a terminal/console and navigate to the directory you wish to clone the repository to
 * At the command line type the following
 ```
@@ -30,21 +31,10 @@ See deployment for notes on how to deploy the project on a live system.
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+* Make sure you have Maven and JUnit plugins for your IDE
+* Import the project as a Maven project
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+If these are configured you should be able to run the application by right clicking on MainApp.java and running as a Java application.  You will also be able to run the WebcrawlerTest.java file as a JUnit test or choose test methods in that class and run them individually via a JUnit plugin.
 
 ## Running the tests
 
@@ -55,13 +45,14 @@ mvn clean test
 
 ```
 
-### Break down into end to end tests
+### Break down of tests
 
-Explain what these tests test and why
+Unit tests are in src/test/java/ in the WebcrawlerTest class.  These tests are designed to run without a network connection by using mock data and Spring injection of a test service class.  Listed below are more details on the tests performed.
 
-```
-Give an example
-```
+* testBadURL()
+  * This tests that a URL was given and in proper format
+* testUnknownWebsite
+  * This tests when a properly formed URL was given but the application could not load the website
 
 ## Deployment
 
@@ -77,6 +68,5 @@ A stand alone executable jar file will be created in the target director of the 
 ## Future improvements
 
 * Some websites can be huge and would take a long time to process and results could be extremely large.  I would put some configurable options maybe at the command line to change the processing behavior to limit how many recursions or URLs to return.  Another option would be how to return the results (file, file type, format, etc.)
-
-
-
+* Maybe treat none HTML page links like PDF and other file links differently, perhaps as a file link or something similar in category to images
+* Implement logging to a file for errors instead of System.out
