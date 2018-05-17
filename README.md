@@ -11,7 +11,7 @@ Here are some of the main features:
 * Compatible with all TLS versions at the time of completion
 * Currently the crawler will only process up to 1000 pages but can be configured in the SiteProcessor class
 
-The jar file that is created when this project is built could be used as a library but beware that this is a super JAR that includes Spring and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a libary inside another application so you can build the JAR as you wish.
+The jar file that is created when this project is built could be used as a library but beware that this is a fat JAR that includes Spring and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a libary inside another application so you can build the JAR as you wish.
 
 ## Getting Started
 
@@ -87,3 +87,4 @@ A stand alone executable jar file will be created in the target director of the 
 * Implement logging to a file for errors instead of System.out
 * Possibly implement Maven Failsafe plugin for integration tests
 * Figure out a better way to have more and less fragile integration tests in place
+* Work some more on the README to put in more useful detail and help
