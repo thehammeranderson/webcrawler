@@ -39,13 +39,19 @@ If these are configured you should be able to run the application by right click
 
 ## Running the tests
 
-If your environment is properly setup with Java and Maven, you can open up a shell/console/terminal window.  Change director to the webcrawler folder.  If you are in the right folder, you will see a pom.xml file.  Now you can type the following from the command line and press <return>:
+If your environment is properly setup with Java and Maven, you can open up a shell/console/terminal window.  Change director to the webcrawler folder.  If you are in the right folder, you will see a pom.xml file.  Now you can type the following from the command line and press <return> to run the Unit Tests:
 
 ```
 mvn clean test
 
 ```
 
+Both the Unit Tests and Integration Tests will run when the project is built as follows:
+
+```
+mvn clean install
+
+```
 ### Break down of tests
 
 Unit tests are in src/test/java/ in the WebcrawlerTest class.  These tests are designed to run without a network connection by using mock data and Spring injection of a test service class.  Listed below are more details on the tests performed.
@@ -58,6 +64,10 @@ Unit tests are in src/test/java/ in the WebcrawlerTest class.  These tests are d
   * This tests that the application can handle a website that has only external links
 * testRecursion
   * This tests a multiple page/level website with a mix of images and internal/external links
+
+Integration tests are in src/test/java in the WebcrawlerIntegrationTest class.  These tests are designed to run successfully only when network connectivity is available and use live website calls.
+* testKnowledgeFactor()
+  * This test makes a call to knowledgefactor.com, which is a small form factor website
 
 ## Deployment
 
