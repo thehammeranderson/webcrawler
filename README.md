@@ -12,12 +12,12 @@ Here are some of the main features:
 ## Getting Started
 
 * Download and install Git
-** See https://git-scm.com/book/en/v2/Getting-Started-Installing-Git for more information
+  * See https://git-scm.com/book/en/v2/Getting-Started-Installing-Git for more information
 * Click Clone or Download on this Github repository page
 * In the Clone with HTTPs section, click the copy button to the right of the URL to copy the clone URL for the repository.
 * Open a terminal/console and navigate to the directory you wish to clone the repository to
 * At the command line type the following
-** git clone https://github.com/thehammeranderson/webcrawler.git
+  * git clone https://github.com/thehammeranderson/webcrawler.git
 * You can now import this project into your IDE by importing as a Maven project
 
 See deployment for notes on how to deploy the project on a live system.
