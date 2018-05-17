@@ -86,4 +86,4 @@ A stand alone executable jar file will be created in the target director of the 
 * Maybe treat none HTML page links like PDF and other file links differently, perhaps as a file link or something similar in category to images
 * Implement logging to a file for errors instead of System.out
 * Possibly implement Maven Failsafe plugin for integration tests
-* Figure out a better way to have more and unfragile integration tests in place
+* Figure out a better way to have more and less fragile integration tests in place
