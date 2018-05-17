@@ -1,8 +1,12 @@
-package org.ganderson.app.webcrawler;
+package org.ganderson.app.webcrawler.data;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,20 +24,26 @@ public class SiteProcessor {
    @Autowired
    HttpService httpService;
 
-   private Set<String> mainList = new HashSet<String>();
+   private List<Page> mainList = new ArrayList<Page>();
    private Set<String> processedUrlMap = new HashSet<String>();
+   private String host;
    private String baseUrl;
    private int maxRecursion = 100;
    private int recursionCount = 0;
 
-   public Set<String> crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException {
+   public List<Page> crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException, URISyntaxException {
       validateUrl(url);
       baseUrl = url;
+      host = new URL(url).getHost();
       processUrl(url);
       return mainList;
    }
 
-   private void processUrl(String url) throws IOException, SiteNotFoundException {
+   private void processUrl(String url) throws IOException, SiteNotFoundException, URISyntaxException {
+      // standardize urls so both versions will equate
+      if (url.endsWith("/")) {
+         url = url.substring(0, url.length() - 1);
+      }
       if (!processedUrlMap.contains(url) && recursionCount <= maxRecursion) {
          recursionCount++;
 
@@ -42,16 +52,17 @@ public class SiteProcessor {
          }
 
          processedUrlMap.add(url);
-         Map<ElementType, Set<String>> elementMap = httpService.getElements(url);
-         mainList.addAll(elementMap.get(ElementType.LINK));
-         mainList.addAll(elementMap.get(ElementType.IMAGE));
+         Page page = httpService.parsePage(url);
+         if (page == null) {
+            return;
+         }
 
-         for (String linkUrl : elementMap.get(ElementType.LINK)) {
+         mainList.add(page);
+
+         for (String linkUrl : page.getLinkUrls()) {
+            URI aUrl = new URI(linkUrl);
             if (linkUrl.toLowerCase().startsWith("mailto:")) {
                continue;
-            } else if (linkUrl.startsWith(baseUrl)) {
-               processUrl(linkUrl);
-
             } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
                // handle relative urls   
                String concatChar = "";
@@ -59,6 +70,8 @@ public class SiteProcessor {
                   concatChar = "/";
                }
                processUrl(baseUrl + concatChar + linkUrl);
+            } else if (host.contains(aUrl.getHost()) || aUrl.getHost().contains(host)) {
+               processUrl(linkUrl);
             }
          }
       }

@@ -1,6 +1,6 @@
 package org.ganderson.app.webcrawler.config;
 
-import org.ganderson.app.webcrawler.SiteProcessor;
+import org.ganderson.app.webcrawler.data.SiteProcessor;
 import org.ganderson.app.webcrawler.service.HttpService;
 import org.ganderson.app.webcrawler.service.HttpServiceImpl;
 import org.springframework.context.annotation.Bean;

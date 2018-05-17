@@ -1,12 +1,10 @@
 package org.ganderson.app.webcrawler.service;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import org.ganderson.app.webcrawler.ElementType;
+import org.ganderson.app.webcrawler.data.Page;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
 
 public class HttpServiceTestImpl implements HttpService {
@@ -22,52 +20,53 @@ public class HttpServiceTestImpl implements HttpService {
    public static final String KNOWN_SITE_RELATIVE_URL = "relativepage.html";
    public static final String GOOGLE_URL = "http://www.google.com";
    public static final String BRONCOS_URL = "http://www.denverbroncos.com";
+   public static final String MAILTO_URL = "mailto:blah@mailinator.com";
 
-   public Map<ElementType, Set<String>> getElements(String url) throws IOException, SiteNotFoundException {
+   public Page parsePage(String url) throws IOException, SiteNotFoundException {
       if (UNKNOWN_SITE_URL.equals(url)) {
          throw new SiteNotFoundException("site not found");
       }
 
-      Map<ElementType, Set<String>> elementMap = new HashMap<>();
-      Set<String> linkList = new HashSet<String>();
-      Set<String> imageList = new HashSet<String>();
+      Page page = new Page(url);
+      Set<String> linkUrls = new HashSet<String>();
+      Set<String> imageUrls = new HashSet<String>();
 
       switch (url) {
       case KNOWN_SITE_URL:
-         imageList.add(IMAGE_1);
-         linkList.add(KNOWN_SITE_LEVEL_ONE_URL);
-         linkList.add(GOOGLE_URL);
+         imageUrls.add(IMAGE_1);
+         linkUrls.add(KNOWN_SITE_LEVEL_ONE_URL);
+         linkUrls.add(GOOGLE_URL);
+         linkUrls.add(MAILTO_URL);
          break;
 
       case KNOWN_SITE_LEVEL_ONE_URL:
-         imageList.add(IMAGE_2);
-         linkList.add(KNOWN_SITE_LEVEL_TWO_URL);
-         linkList.add(KNOWN_SITE_RELATIVE_URL);
+         imageUrls.add(IMAGE_2);
+         linkUrls.add(KNOWN_SITE_LEVEL_TWO_URL);
+         linkUrls.add(KNOWN_SITE_RELATIVE_URL);
          break;
 
       case KNOWN_SITE_LEVEL_TWO_URL:
-         imageList.add(IMAGE_3);
+         imageUrls.add(IMAGE_3);
          // test data to test that recursion won't infinitely loop
-         linkList.add(KNOWN_SITE_LEVEL_ONE_URL);
-         linkList.add(KNOWN_SITE_LEVEL_THREE_URL);
+         linkUrls.add(KNOWN_SITE_LEVEL_ONE_URL);
+         linkUrls.add(KNOWN_SITE_LEVEL_THREE_URL);
          break;
 
       case KNOWN_SITE_LEVEL_THREE_URL:
-         imageList.add(IMAGE_4);
-         linkList.add(BRONCOS_URL);
+         imageUrls.add(IMAGE_4);
+         linkUrls.add(BRONCOS_URL);
          break;
 
       case KNOWN_SITE_URL + "/" + KNOWN_SITE_RELATIVE_URL:
-         linkList.add(BRONCOS_URL);
+         linkUrls.add(BRONCOS_URL);
          break;
       default:
          break;
       }
 
-      elementMap.put(ElementType.LINK, linkList);
-      elementMap.put(ElementType.IMAGE, imageList);
-
-      return elementMap;
+      page.setLinkUrls(linkUrls);
+      page.setImageUrls(imageUrls);
+      return page;
    }
 
 }
