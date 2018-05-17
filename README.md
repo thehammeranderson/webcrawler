@@ -53,6 +53,10 @@ Unit tests are in src/test/java/ in the WebcrawlerTest class.  These tests are d
   * This tests that a URL was given and in proper format
 * testUnknownWebsite
   * This tests when a properly formed URL was given but the application could not load the website
+* testNoRecursion
+  * This tests that the application can handle a website that has only external links
+* testRecursion
+  * This tests a multiple page/level website with a mix of images and internal/external links
 
 ## Deployment
 
