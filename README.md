@@ -78,6 +78,8 @@ java -jar <path to jar>webcrawler-0.0.1-SNAPSHOT.jar http://knowledgefactor.com
 
 ```
 
+Where the URL listed at the end of the command is replaced with a website you wish to process.
+
 ## Built With
 
 * [Spring](https://spring.io/) - The application framework
