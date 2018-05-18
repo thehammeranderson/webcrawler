@@ -71,10 +71,10 @@ Integration tests are in src/test/java in the WebcrawlerIntegrationTest class.  
 
 ## Deployment
 
-A stand alone executable jar file will be created in the target director of the project.  This can be copied to anywhere java is available to run the jar from a command line.
+A stand alone executable jar file will be created in the target director of the project.  This can be copied to anywhere java is available to run the jar from a command line.  A file will be created in the directory where the command was run from and it will be called sitemap.txt.
 
 ```
-java -jar target/webcrawler-0.0.1-SNAPSHOT.jar http://knowledgefactor.com
+java -jar <path to jar>webcrawler-0.0.1-SNAPSHOT.jar http://knowledgefactor.com
 
 ```
 
