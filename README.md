@@ -73,6 +73,11 @@ Integration tests are in src/test/java in the WebcrawlerIntegrationTest class.  
 
 A stand alone executable jar file will be created in the target director of the project.  This can be copied to anywhere java is available to run the jar from a command line.
 
+```
+java -jar target/webcrawler-0.0.1-SNAPSHOT.jar http://knowledgefactor.com
+
+```
+
 ## Built With
 
 * [Spring](https://spring.io/) - The application framework
