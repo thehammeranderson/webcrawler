@@ -18,6 +18,7 @@ public class HttpServiceTestImpl implements HttpService {
    public static final String KNOWN_SITE_LEVEL_TWO_URL = KNOWN_SITE_LEVEL_ONE_URL + "/leveltwo";
    public static final String KNOWN_SITE_LEVEL_THREE_URL = KNOWN_SITE_LEVEL_TWO_URL + "/levelthree";
    public static final String KNOWN_SITE_RELATIVE_URL = "relativepage.html";
+   public static final String KNOWN_SITE_BAD_CHAR = "http://x62.deja.com/[ST_rn=fs]/threadmsg_ct.xp?AN=643235371.1&mhitnum=0&CONTEXT=964800057.1021116437";
    public static final String GOOGLE_URL = "http://www.google.com";
    public static final String BRONCOS_URL = "http://www.denverbroncos.com";
    public static final String MAILTO_URL = "mailto:blah@mailinator.com";
@@ -43,6 +44,7 @@ public class HttpServiceTestImpl implements HttpService {
          imageUrls.add(IMAGE_2);
          linkUrls.add(KNOWN_SITE_LEVEL_TWO_URL);
          linkUrls.add(KNOWN_SITE_RELATIVE_URL);
+         linkUrls.add(KNOWN_SITE_BAD_CHAR);
          break;
 
       case KNOWN_SITE_LEVEL_TWO_URL:

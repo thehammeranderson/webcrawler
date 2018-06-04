@@ -35,14 +35,14 @@ public class WebcrawlerIntegrationTest {
          assertEquals("first line in file is incorrect", "Page processed: https://knowledgefactor.com", reader.readLine());
          assertEquals("second line in file is incorrect", "  Links found:", reader.readLine());
          reader.readLine();
-         assertEquals("fourth line in file is incorrect", "    * https://amplifire.com/terms-conditions/", reader.readLine());
+         assertEquals("fourth line in file is incorrect", "    * https://amplifire.com/leadership/", reader.readLine());
 
          String line;
          boolean foundImagesLine = false;
          while ((line = reader.readLine()) != null) {
             if (line.equals("  Images found:")) {
                foundImagesLine = true;
-               assertEquals("the first image found was incorrect", "   * https://amplifire.com/wp-content/uploads/sites/5/2016/10/pearson-case-study-logo.png", reader.readLine());
+               assertEquals("the first image found was incorrect", "   * https://amplifire.com/wp-content/uploads/2018/05/image004.png", reader.readLine());
                break;
             }
          }

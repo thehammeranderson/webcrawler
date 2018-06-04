@@ -1,6 +1,7 @@
 package org.ganderson.app.webcrawler.data;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -34,7 +35,12 @@ public class SiteProcessor {
    public List<Page> crawlSite(String url) throws InvalidUrlException, SiteNotFoundException, IOException, URISyntaxException {
       validateUrl(url);
       baseUrl = url;
-      host = new URL(url).getHost();
+      try {
+         host = new URL(url).getHost();
+      } catch (MalformedURLException e) {
+         throw new InvalidUrlException("invalid url");
+      }
+
       processUrl(url);
       return mainList;
    }
@@ -60,18 +66,24 @@ public class SiteProcessor {
          mainList.add(page);
 
          for (String linkUrl : page.getLinkUrls()) {
-            URI aUrl = new URI(linkUrl);
-            if (linkUrl.toLowerCase().startsWith("mailto:")) {
-               continue;
-            } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
-               // handle relative urls   
-               String concatChar = "";
-               if (!baseUrl.endsWith("/")) {
-                  concatChar = "/";
+            try {
+               URI aUrl = new URI(linkUrl);
+
+               if (linkUrl.toLowerCase().startsWith("mailto:")) {
+                  continue;
+               } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
+                  // handle relative urls   
+                  String concatChar = "";
+                  if (!baseUrl.endsWith("/")) {
+                     concatChar = "/";
+                  }
+                  processUrl(baseUrl + concatChar + linkUrl);
+               } else if (host.contains(aUrl.getHost()) || aUrl.getHost().contains(host)) {
+                  processUrl(linkUrl);
                }
-               processUrl(baseUrl + concatChar + linkUrl);
-            } else if (host.contains(aUrl.getHost()) || aUrl.getHost().contains(host)) {
-               processUrl(linkUrl);
+            } catch (URISyntaxException e) {
+               System.out.println("invalid URL: " + linkUrl);
+               continue;
             }
          }
       }
