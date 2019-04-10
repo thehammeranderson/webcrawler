@@ -1,6 +1,6 @@
 # Webcrawler
 
-This is a java based website crowler.  Given a fully qualified URL (i.e. http://www.espn.com) as a parameter, the crawler will follow all internal links it finds and capture image source, and internal and external URLs found on the pages it processes.
+This is a java based website crawler.  Given a fully qualified URL (i.e. http://www.espn.com) as a parameter, the crawler will follow all internal links it finds and capture image source, and internal and external URLs found on the pages it processes.
 
 Here are some of the main features:
 * URL format validation
