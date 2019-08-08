@@ -11,7 +11,7 @@ Here are some of the main features:
 * Compatible with all TLS versions at the time of completion
 * Currently the crawler will only process up to 1000 pages but can be configured in the SiteProcessor class
 
-The jar file that is created when this project is built could be used as a library but beware that this is a fat JAR that includes Spring and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a libary inside another application so you can build the JAR as you wish.
+The jar file that is created when this project is built could be used as a library but beware that this is a fat JAR that includes Spring Boot and JSoup dependencies inside the JAR.  It would be recommended that your fork this project if you wish to use this strictly as a library inside another application so you can build the JAR as you wish.
 
 ## Getting Started
 
@@ -82,7 +82,7 @@ Where the URL listed at the end of the command is replaced with a website you wi
 
 ## Built With
 
-* [Spring](https://spring.io/) - The application framework
+* [Spring Boot](https://spring.io/projects/spring-boot) - The application framework
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [JSoup](https://jsoup.org/) - Used to process the HTML documents
 * [JUnit](https://junit.org/junit5/) - Used for unit testing
