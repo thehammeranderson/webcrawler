@@ -14,9 +14,13 @@ import org.ganderson.app.webcrawler.data.Page;
 import org.ganderson.app.webcrawler.data.SiteProcessor;
 import org.ganderson.app.webcrawler.exception.InvalidUrlException;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 
+@SpringBootApplication
+@Import(ApplicationConfig.class)
 public class MainApp {
    public static void main(String[] args) throws URISyntaxException {
       if (args.length == 0) {
@@ -26,7 +30,9 @@ public class MainApp {
       Logger root = Logger.getLogger("");
       root.setLevel(Level.WARNING);
 
-      try (ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class)) {
+      ApplicationContext ctx = SpringApplication.run(MainApp.class, args);
+      
+      try {
          SiteProcessor siteProcessor = ctx.getBean(SiteProcessor.class);
          List<Page> pages = siteProcessor.crawlSite(args[0]);
 

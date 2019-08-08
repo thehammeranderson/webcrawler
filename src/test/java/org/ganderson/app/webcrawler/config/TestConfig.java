@@ -4,10 +4,8 @@ import org.ganderson.app.webcrawler.data.SiteProcessor;
 import org.ganderson.app.webcrawler.service.HttpService;
 import org.ganderson.app.webcrawler.service.HttpServiceTestImpl;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-@Configuration
 public class TestConfig {
 
    @Bean
