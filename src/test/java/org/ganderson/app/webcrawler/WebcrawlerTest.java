@@ -1,13 +1,5 @@
 package org.ganderson.app.webcrawler;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.ganderson.app.webcrawler.config.TestConfig;
 import org.ganderson.app.webcrawler.data.Page;
 import org.ganderson.app.webcrawler.data.SiteProcessor;
@@ -17,11 +9,19 @@ import org.ganderson.app.webcrawler.service.HttpServiceTestImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.*;
+
 @RunWith(SpringRunner.class)
+@SpringBootTest
 @ContextConfiguration(classes = TestConfig.class, loader = AnnotationConfigContextLoader.class)
 public class WebcrawlerTest {
    @Autowired
@@ -70,7 +70,7 @@ public class WebcrawlerTest {
    }
 
    @Test
-   public void testNoRecursion() throws Exception {
+   public void noSiteCrawling() throws Exception {
       List<Page> results = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_LEVEL_THREE_URL);
       assertEquals("only one page was not returned", 1, results.size());
       Page page = results.get(0);
@@ -79,11 +79,11 @@ public class WebcrawlerTest {
    }
 
    @Test
-   public void testRecursion() throws Exception {
+   public void testSiteCrawling() throws Exception {
       List<Page> pages = siteProcessor.crawlSite(HttpServiceTestImpl.KNOWN_SITE_URL);
       assertEquals("four pages were not returned", 5, pages.size());
 
-      Set<String> results = new HashSet<String>();
+       Set<String> results = new HashSet<>();
       for (Page page : pages) {
          results.addAll(page.getImageUrls());
          results.addAll(page.getLinkUrls());

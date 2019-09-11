@@ -60,21 +60,27 @@ Unit tests are in src/test/java/ in the WebcrawlerTest class.  These tests are d
   * This tests that a URL was given and in proper format
 * testUnknownWebsite
   * This tests when a properly formed URL was given but the application could not load the website
-* testNoRecursion
+* testNoSiteCrawling
   * This tests that the application can handle a website that has only external links
-* testRecursion
+* testSiteCrawling
   * This tests a multiple page/level website with a mix of images and internal/external links
 
 Integration tests are in src/test/java in the WebcrawlerIntegrationTest class.  These tests are designed to run successfully only when network connectivity is available and use live website calls.
 * testKnowledgeFactor()
   * This test makes a call to knowledgefactor.com, which is a small form factor website
 
-## Deployment
-
-A stand alone executable jar file will be created in the target director of the project.  This can be copied to anywhere java is available to run the jar from a command line.  A file will be created in the directory where the command was run from and it will be called sitemap.txt.
+## Run with Spring Boot
+You can run the application with the following command from the root project folder:
+```
+mvn spring-boot:run -Dspring-boot.run.arguments="<URL to crawl>,<optional number of URLs to process limit>"
 
 ```
-java -jar <path to jar>webcrawler-0.0.1-SNAPSHOT.jar http://knowledgefactor.com
+## Deployment
+
+A stand alone executable jar file will be created in the target director of the project when running the maven install target.  This can be copied to anywhere java is available to run the jar from a command line.  A file will be created in the directory where the command was run from and it will be called sitemap.txt.
+
+```
+java -jar <path to jar>webcrawler-0.0.1-SNAPSHOT.jar <http://knowledgefactor.com> <optional number of URLs to process limit>
 
 ```
 
