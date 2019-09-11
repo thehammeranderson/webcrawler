@@ -26,7 +26,7 @@ public class SiteProcessor {
     HttpService httpService;
 
     private List<Page> mainList = new ArrayList<>();
-    private Set<String> processedUrlMap = new HashSet<>();
+    private Set<String> processedUrlSet = new HashSet<>();
     private String host;
     private String baseUrl;
 
@@ -36,7 +36,7 @@ public class SiteProcessor {
 
     public List<Page> crawlSite(String url, Integer processUrlLimit) throws InvalidUrlException, SiteNotFoundException, IOException, URISyntaxException {
         validateUrl(url);
-        baseUrl = url;
+        baseUrl = standardizeUrl(url);
         try {
             host = new URL(url).getHost();
         } catch (MalformedURLException e) {
@@ -48,13 +48,8 @@ public class SiteProcessor {
     }
 
     private void processUrl(String url, Integer processUrlLimit) throws IOException, SiteNotFoundException, URISyntaxException {
-        // standardize urls so both versions will equate
-        if (url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
-        }
-
         List<String> urlsToProcess = new ArrayList<>();
-        urlsToProcess.add(url);
+        urlsToProcess.add(standardizeUrl(url));
 
         for (int count = 0; count < urlsToProcess.size(); count++) {
             if (processUrlLimit != null && count >= processUrlLimit) {
@@ -63,7 +58,7 @@ public class SiteProcessor {
 
             String thisUrl = urlsToProcess.get(count);
 
-            processedUrlMap.add(thisUrl);
+            processedUrlSet.add(thisUrl);
             Page page = httpService.parsePage(thisUrl);
             if (page == null) {
                 return;
@@ -79,16 +74,12 @@ public class SiteProcessor {
                         continue;
                     } else if (!linkUrl.startsWith("http://") && !linkUrl.startsWith("https://")) {
                         // handle relative urls
-                        String concatChar = "";
-                        if (!baseUrl.endsWith("/")) {
-                            concatChar = "/";
-                        }
-                        if (!urlsToProcess.contains(baseUrl + concatChar + linkUrl)) {
-                            urlsToProcess.add(baseUrl + concatChar + linkUrl);
+                        if (!processedUrlSet.contains(standardizeUrl(baseUrl + "/" + linkUrl))) {
+                            urlsToProcess.add(standardizeUrl(baseUrl + "/" + linkUrl));
                         }
                     } else if (host.contains(aUrl.getHost()) || aUrl.getHost().contains(host)) {
-                        if (!urlsToProcess.contains(linkUrl)) {
-                            urlsToProcess.add(linkUrl);
+                        if (!processedUrlSet.contains(standardizeUrl(linkUrl))) {
+                            urlsToProcess.add(standardizeUrl(linkUrl));
                         }
                     }
                 } catch (URISyntaxException e) {
@@ -96,6 +87,13 @@ public class SiteProcessor {
                 }
             }
         }
+    }
+
+    private String standardizeUrl(String url) {
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
     }
 
     private void validateUrl(String url) throws InvalidUrlException {
