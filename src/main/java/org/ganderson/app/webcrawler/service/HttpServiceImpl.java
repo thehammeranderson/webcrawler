@@ -1,20 +1,5 @@
 package org.ganderson.app.webcrawler.service;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.ganderson.app.webcrawler.data.Page;
 import org.ganderson.app.webcrawler.exception.SiteNotFoundException;
 import org.jsoup.HttpStatusException;
@@ -23,44 +8,12 @@ import org.jsoup.UnsupportedMimeTypeException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 public class HttpServiceImpl implements HttpService {
-   static {
-      TrustManager[] trustAllCertificates = new TrustManager[] { new X509TrustManager() {
-         @Override
-         public X509Certificate[] getAcceptedIssuers() {
-            return null; // Not relevant.
-         }
-
-         @Override
-         public void checkClientTrusted(X509Certificate[] certs, String authType) {
-            // Do nothing. Just allow them all.
-         }
-
-         @Override
-         public void checkServerTrusted(X509Certificate[] certs, String authType) {
-            // Do nothing. Just allow them all.
-         }
-      } };
-
-      HostnameVerifier trustAllHostnames = new HostnameVerifier() {
-         @Override
-         public boolean verify(String hostname, SSLSession session) {
-            return true; // Just allow them all.
-         }
-      };
-
-      try {
-         System.setProperty("jsse.enableSNIExtension", "false");
-         SSLContext sc = SSLContext.getInstance("SSL");
-         sc.init(null, trustAllCertificates, new SecureRandom());
-         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-         HttpsURLConnection.setDefaultHostnameVerifier(trustAllHostnames);
-      } catch (GeneralSecurityException e) {
-         throw new ExceptionInInitializerError(e);
-      }
-
-      System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-   }
 
    public Page parsePage(String url) throws IOException, SiteNotFoundException {
       try {
