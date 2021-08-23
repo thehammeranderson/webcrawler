@@ -18,7 +18,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.spring>2.1.6.RELEASE</version.spring>
     <version.junit>4.12</version.junit>
-    <version.jsoup>1.11.3</version.jsoup>
+    <version.jsoup>1.14.2</version.jsoup>
   </properties>
 
   <dependencies>
